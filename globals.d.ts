@@ -1,0 +1,1 @@
+declare var __dirname: './src/shared/language/language.ts';

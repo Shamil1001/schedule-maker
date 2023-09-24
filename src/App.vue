@@ -1,45 +1,49 @@
 <script>
-import { ref, watch } from 'vue';
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, watch } from "vue";
 import Header from "./components/Header.vue";
+import Task from "./components/Task.vue";
+import { scheduleData } from "./scheduleData.ts";
 
 export default {
   components: {
     Header,
+    Task,
+  },
+  data() {
+    return {
+      scheduleData: scheduleData,
+    };
   },
   setup() {
-    const isDarkMode = ref(false);
+    const isDarkMode = ref(true);
 
     const toggleDarkMode = () => {
       isDarkMode.value = !isDarkMode.value;
-      document.body.classList.toggle('dark', isDarkMode.value);
+      document.body.classList.toggle("dark", isDarkMode.value);
     };
 
-    watch(isDarkMode, (value) => {
-      
-    });
+    watch(isDarkMode, (value) => {});
 
     return {
       toggleDarkMode,
     };
   },
 };
+console.log(scheduleData[0]);
 </script>
 
 <template>
   <div class="flex justify-center h-[100vh] dark:bg-darkBg dark:text-white">
-    <div class="w-[50%] ">
-      <Header/>
-      <button @click="toggleDarkMode" class="bg-blue-800">Toggle Dark Mode</button>
-      <h1 className="text-1xl text-blue-500 font-bold underline">
-        Hello world!
-      </h1>
-      
+    <div class="w-[50%] border-gray-600">
+      <Header />
+      <div v-for="item in scheduleData">
+        <Task :data="item" />
+      </div>
+      <button @click="toggleDarkMode" class="bg-red-800 rounded">
+        Toggle Dark Mode
+      </button>
     </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
